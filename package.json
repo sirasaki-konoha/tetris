@@ -1,0 +1,45 @@
+{
+  "name": "tetris",
+  "version": "1.0.0",
+  "description": "tetris game application",
+  "author": {
+	  "name": "Konoha",
+	  "email": "sirasaki.konoha@gmail.com"
+  },
+  "homepage": "https://pik6c.tech/tetris",
+  "main": "main.js",
+  "scripts": {
+    "test": "electron .",
+    "build": "electron-builder"
+  },
+  "build" : {
+	  "appId": "com.tetris.konoha",
+	  "productName": "TETRIS",
+	  "files": [
+		  "**/*"
+	  ],
+	  "directories": {
+		  "output": "dist"
+	  },
+	  "linux": {
+		  "target": ["AppImage", "deb"],
+		  "maintainer": "sirasaki.konoha@gmail.com",
+		  "category": "Game",
+		  "synopsis": "Tetris game application native"
+	  },
+	  "win": {
+		  "target": ["nsis"]
+	  },
+	  "mac": {
+		  "target": ["dmg"]
+	  },
+	  "asar": true
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^37.2.6",
+    "electron-builder": "^26.0.12"
+  }
+}

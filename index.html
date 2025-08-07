@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ﾃﾄﾘｽ from ｺﾉﾊ - HOME</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(-45deg, #74ebd5, #acb6e5, #ffdde1, #e0c3fc);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      text-align: center;
+      width: 300px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .glass-card h1 {
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 30px;
+    }
+
+    .glass-card button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .glass-card button:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(1.05);
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      width: 80%;
+      max-width: 400px;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 10;
+      text-align: left;
+      pointer-events: none;
+    }
+
+    .popup.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: auto;
+    }
+
+    .popup h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .popup ul {
+      padding-left: 1.2em;
+    }
+
+    .popup button {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.3);
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .electron-badge {
+	  position: fixed;
+	  top: 10px;
+	  right: 15px;
+	  background: rgba(255, 255, 255, 0.15);
+	  backdrop-filter: blur(10px);
+	  color: white;
+	  font-size: 0.8rem;
+	  padding: 6px 12px;
+	  border-radius: 12px;
+	  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+	  z-index: 9999;
+	  pointer-events: none;
+	  user-select: none;
+	  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	}
+  </style>
+</head>
+<body>
+  <audio id="bgm" src="home.mp3" loop autoplay></audio>
+  <audio id="click-sound" src="click.mp3"></audio>
+
+  <div class="glass-card">
+    <h1>TETRIS</h1>
+    <button id="startBtn">スタート</button>
+    <button onclick="playClick(); togglePopup()">操作説明</button>
+  </div>
+
+  <div id="popup" class="popup">
+    <h2>操作説明</h2>
+    <ul>
+      <li>← / →：移動</li>
+      <li>↓：高速落下</li>
+      <li>↑：ハードドロップ</li>
+      <li>X / Z：回転</li>
+      <li>Space：回転</li>
+      <li>M：BGM ON/OFF</li>
+    </ul>
+    <button onclick="togglePopup()">閉じる</button>
+  </div>
+
+  <script>
+    const bgm = document.getElementById('bgm');
+    const clickSound = document.getElementById('click-sound');
+    const popup = document.getElementById('popup');
+    const startBtn = document.getElementById('startBtn');
+
+    bgm.volume = 0.2;
+
+    document.addEventListener('click', () => {
+      if (bgm.paused) bgm.play();
+    }, { once: true });
+
+    function playClick() {
+      clickSound.currentTime = 0;
+      clickSound.play();
+    }
+
+    function togglePopup() {
+      popup.classList.toggle('show');
+    }
+
+    function fadeTo(url) {
+      document.body.style.transition = 'opacity 0.8s ease';
+      document.body.style.opacity = '0';
+      setTimeout(() => {
+        window.location.href = url;
+      }, 800);
+    }
+
+    startBtn.addEventListener('click', () => {
+      playClick();
+      fadeTo('tetris/tetris.html');
+    });
+  </script>
+  <div class="electron-badge">Native application powered by Electron</div>
+</body>
+</html>

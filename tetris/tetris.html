@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ﾃﾄﾘｽ from ｺﾉﾊ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-board">
+            <h1 class="title"></h1>
+            <div style="position: relative;">
+                <canvas id="gameCanvas" width="300" height="600"></canvas>
+                <div class="lightning-overlay" id="lightningOverlay"></div>
+            </div>
+            <div class="game-over" id="gameOver">
+                <h2>ゲームオーバー</h2>
+                <div class="value" id="finalScore">0</div>
+                <button class="restart-btn" onclick="restartGame()">もう一度プレイ</button>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <div class="info-box">
+                <h3>スコア</h3>
+                <div class="value" id="score">0</div>
+            </div>
+
+            <div class="info-box">
+                <h3>レベル</h3>
+                <div class="value" id="level">1</div>
+            </div>
+
+            <div class="info-box">
+                <h3>ライン</h3>
+                <div class="value" id="lines">0</div>
+            </div>
+
+            <div class="info-box">
+                <h3>ネクスト</h3>
+                <canvas class="next-piece" id="nextCanvas" width="120" height="120"></canvas>
+            </div>
+
+            <div class="info-box controls">
+                <strong>操作方法:</strong><br>
+                ← → : 移動<br>
+                ↓ : 高速落下<br>
+                ↑ : ハードドロップ<br>
+                X/Z : 回転<br>
+                Space : 回転<br>
+                <span style="color: #ffd700;">▪</span> : 降下予測地点<br>
+                M : BGM ON/OFF<br><br>
+                <small style="color: #ccc;">※ BGMは自動で開始</small>
+            </div>
+
+            <div class="info-box">
+                <h3>BGM</h3>
+                <button class="bgm-btn" id="bgmToggle" onclick="toggleBGM()">🔊 ON</button>
+                <div class="volume-control">
+                    <input type="range" id="volumeSlider" min="0" max="100" value="50" onchange="setVolume(this.value)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BGM Audio Element -->
+    <audio id="bgmAudio" loop preload="auto">
+        <source src="bgm.mp3" type="audio/mpeg">
+        <source src="bgm.ogg" type="audio/ogg">
+        <source src="bgm.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
