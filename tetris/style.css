@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3);
+    background: linear-gradient(45deg, #4ecdc4, #45b7d1, #96ceb4, #6dd5ed, #2193b0, #00c6ff);
     background-size: 400% 400%;
     animation: gradientShift 8s ease infinite;
     min-height: 100vh;
@@ -32,6 +32,8 @@ body {
     display: flex;
     gap: 30px;
     animation: float 6s ease-in-out infinite;
+    position: relative;
+    z-index: 10;
 }
 
 @keyframes float {
@@ -47,7 +49,7 @@ body {
     text-align: center;
     font-size: 2.5em;
     font-weight: bold;
-    background: linear-gradient(45deg, #fff, #ffd700, #ff69b4);
+    background: linear-gradient(45deg, #fff, #00c6ff, #4ecdc4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -89,7 +91,7 @@ canvas {
 .info-box .value {
     font-size: 2em;
     font-weight: bold;
-    background: linear-gradient(45deg, #ffd700, #ff69b4, #00bfff);
+    background: linear-gradient(45deg, #00c6ff, #4ecdc4, #45b7d1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -103,7 +105,7 @@ canvas {
 }
 
 .controls strong {
-    background: linear-gradient(45deg, #ffd700, #ff69b4);
+    background: linear-gradient(45deg, #00c6ff, #4ecdc4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -142,7 +144,7 @@ canvas {
 }
 
 .restart-btn {
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    background: linear-gradient(45deg, #4ecdc4, #45b7d1);
     border: none;
     color: white;
     padding: 15px 30px;
@@ -205,7 +207,7 @@ canvas {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: linear-gradient(45deg, #ffd700, #ff69b4);
+    background: linear-gradient(45deg, #00c6ff, #4ecdc4);
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
@@ -214,7 +216,7 @@ canvas {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: linear-gradient(45deg, #ffd700, #ff69b4);
+    background: linear-gradient(45deg, #00c6ff, #4ecdc4);
     cursor: pointer;
     border: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
@@ -229,6 +231,30 @@ canvas {
     border-radius: 50%;
     pointer-events: none;
     animation: float-particle 10s linear infinite;
+    z-index: -1;
+}
+
+.music-particle {
+    z-index: -1;
+}
+
+@keyframes musicFloat {
+    0% {
+        transform: translateY(0px) rotate(0deg) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(-50px) rotate(36deg) scale(1);
+    }
+    90% {
+        opacity: 1;
+        transform: translateY(-90vh) rotate(324deg) scale(1);
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg) scale(0);
+        opacity: 0;
+    }
 }
 
 @keyframes sparkleExplode {
@@ -261,8 +287,8 @@ canvas {
 
 @keyframes lightningFlash {
     0%, 100% { opacity: 0; }
-    10%, 90% { opacity: 0.8; }
-    50% { opacity: 1; }
+    10%, 90% { opacity: 0.1; }
+    50% { opacity: 0.2; }
 }
 
 .lightning-overlay {
@@ -271,9 +297,15 @@ canvas {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
     pointer-events: none;
     opacity: 0;
+    z-index: 1;
+}
+
+/* 音楽連動時の背景エフェクト強化 */
+body.music-active {
+    animation: gradientShift 4s ease infinite;
 }
 
 /* Responsive design */

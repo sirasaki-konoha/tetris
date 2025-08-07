@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ﾃﾄﾘｽ from ｺﾉﾊ - HOME</title>
+  <link rel="icon" href="./icon.png" type="image/x-icon">
+  <title>Cubet Tetris - HOME</title>
   <style>
     body {
       margin: 0;
@@ -131,6 +132,7 @@
 <body>
   <audio id="bgm" src="home.mp3" loop autoplay></audio>
   <audio id="click-sound" src="click.mp3"></audio>
+  <audio id="start-sound" src="play.mp3"></audio>
 
   <div class="glass-card">
     <h1>TETRIS</h1>
@@ -154,6 +156,7 @@
   <script>
     const bgm = document.getElementById('bgm');
     const clickSound = document.getElementById('click-sound');
+    const startSound = document.getElementById('start-sound');
     const popup = document.getElementById('popup');
     const startBtn = document.getElementById('startBtn');
 
@@ -168,23 +171,45 @@
       clickSound.play();
     }
 
+    function clickPlaySound() {
+      bgm.paused = true;
+      playSound.currentTime = 0;
+      playSound.play();
+    }
+
     function togglePopup() {
       popup.classList.toggle('show');
     }
 
     function fadeTo(url) {
-      document.body.style.transition = 'opacity 0.8s ease';
+      document.body.style.transition = 'opacity 4.5s ease';
       document.body.style.opacity = '0';
       setTimeout(() => {
         window.location.href = url;
-      }, 800);
+      }, 4500);
+    }
+
+    function fadeOutAudio(audio, duration = 2000) {
+        const step = 50;
+        const volumeStep = audio.volume / (duration / step);
+        const fade = setInterval(() => {
+            if (audio.volume > volumeStep) {
+                audio.volume -= volumeStep;
+            } else {
+                clearInterval(fade);
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        }, step);
     }
 
     startBtn.addEventListener('click', () => {
-      playClick();
+      fadeOutAudio(bgm, 500);
+      
+      startSound.volume = 0.2;
+      startSound.play();
       fadeTo('tetris/tetris.html');
-    });
+    }, { once: true });
   </script>
-  <div class="electron-badge">Native application powered by Electron</div>
 </body>
 </html>
